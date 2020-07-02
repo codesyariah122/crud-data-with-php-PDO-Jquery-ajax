@@ -26,6 +26,11 @@ $viewData = view("SELECT * FROM `product`");
 		<th>Product Price</th>
 		<th>Operation Table</th>
 	</tr>
+<?php if(empty($viewData)): ?>
+	<tr>
+		<td colspan="5" style="text-align: center;">No Data</td>
+	</tr>
+<?php endif;?>
 <?php $no=1; foreach($viewData as $v): ?>
 	<tr>
 		<td><?=$no?></td>

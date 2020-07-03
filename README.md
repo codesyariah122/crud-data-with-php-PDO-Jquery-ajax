@@ -1,6 +1,6 @@
 ## crud data with PHP(PDO Extention) and jquery ajax
 
-***requirements***  
+***Prerequisites***  
 <ul>
   <li><a href="https://code.jquery.com/">jquery source</a></li>
   <li><a href="https://api.jquery.com/">apijquery doc</a></li>  

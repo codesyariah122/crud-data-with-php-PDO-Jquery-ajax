@@ -5,7 +5,7 @@ function layout($dir, $file, $ext){
 	if(file_exists($dir.'/'.$file.$ext)){
 		require_once $dir.'/'.$file.$ext;
 	}else{
-		echo "<h1 style='color:red;'>Layout not found</h1>";
+		echo "<h1 class='text-danger text-center'>Layout Not Found</h1>";
 	}
 }
 
@@ -14,15 +14,15 @@ function connect(){
 	$dbname = DB_NAME;
 	$dbuser = DB_USER;
 	$dbpass = DB_PASS;
+
 	try{
-		$conn = new PDO("mysql:host=$dbhost; dbname=$dbname", $dbuser, $dbpass);
+		$conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		//echo "Connection succesfully added";
 		return $conn;
 	}catch(PDOException $e){
-		echo "Connection Failed ".$e->getMessage();
-		$conn = null;
+		echo "Connection failed ".$e->getMessage();
 	}
-	
 }
 
 
@@ -30,15 +30,14 @@ function view($query){
 	$dbh = connect();
 	try{
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql=$dbh->query($query);
-		$rows = [];
+		$sql = $dbh->query($query);
+		$rows=[];
 
-			while($row = $sql->fetch(PDO::FETCH_ASSOC)):
-				$rows[]=$row;
-			endwhile;
+		while($row = $sql->fetch(PDO::FETCH_ASSOC)):
+			$rows[] = $row;
+		endwhile;
 
 		return $rows;
-
 	}catch(PDOException $e){
 		echo $e->getMessage();
 	}
@@ -46,17 +45,16 @@ function view($query){
 
 
 function addAjax($data, $table){
+	// var_dump($data);
 	$dbh = connect();
-
-	$productcode = @$data['productcode'];
-	$productname = @$data['productname'];
-	$productprice = @$data['productprice'];
+	$productCode = @$data['productcode'];
+	$productName = @$data['productname'];
+	$productPrice = @$data['productprice'];
 
 	$insertProduct = $dbh->prepare("INSERT INTO `$table` (id, product_code, product_name, product_price) VALUES ('', ?, ?, ?)");
-
-	$insertProduct->bindParam(1, $productcode);
-	$insertProduct->bindParam(2, $productname);
-	$insertProduct->bindParam(3, $productprice);
+	$insertProduct->bindParam(1, $productCode);
+	$insertProduct->bindParam(2, $productName);
+	$insertProduct->bindParam(3, $productPrice);
 
 	$insertProduct->execute();
 
@@ -64,30 +62,25 @@ function addAjax($data, $table){
 }
 
 function editAjax($data, $table){
-	
-	$productcode = @$data['productcode'];
-	$productname = @$data['productname'];
-	$productprice = @$data['productprice'];
-	$productid = @$data['productid'];
+	$productCode = @$data['productcode'];
+	$productName = @$data['productname'];
+	$productPrice = @$data['productprice'];
+	$productId = @$data['productid'];
 
 	$dbh = connect();
-	$edit = $dbh->prepare("UPDATE `$table` SET product_code=?, product_name=?, product_price=? WHERE `id` = ?");
-	$edit->execute([$productcode, $productname, $productprice, $productid]);
+
+	$edit = $dbh->prepare("UPDATE `$table` SET product_code = ?, product_name = ?, product_price = ? WHERE `id` = ?");
+	$edit->execute([$productCode, $productName, $productPrice, $productId]);
 	return $edit->rowCount();
-}
-
-function viewEdit($table, $id){
-	$dbh = connect();
-	$data = $dbh->query("SELECT * FROM `$table` WHERE `id` = '$id'");
-	return $data->fetch(PDO::FETCH_OBJ);
 }
 
 function deleteAjax($data, $table){
 	$dbh = connect();
 	$id = @$data['id'];
-	// var_dump($id);
-	$delete = $dbh->prepare("DELETE FROM `$table` WHERE id = :id");
+	$delete = $dbh->prepare("DELETE FROM `$table` WHERE `id` = :id");
 	$delete->bindParam(":id", $id);
+
 	$delete->execute();
+
 	return $delete->rowCount();
 }

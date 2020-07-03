@@ -1,6 +1,12 @@
-# crud data with PHP(PDO Extention) and jquery ajax
+## crud data with PHP(PDO Extention) and jquery ajax
 
-***Exclude link***  
-https://code.jquery.com/  
-https://api.jquery.com/  
-https://www.php.net/manual/en/book.pdo.php
+***requirements***  
+<ul>
+  <li><a href="https://code.jquery.com/">jquery source</a></li>
+  <li><a href="https://api.jquery.com/">apijquery doc</a></li>  
+  <li><a href="https://www.w3schools.com/bootstrap4/bootstrap_get_started.asp">If you work with bootstrap css</a></li>
+  <li><a href="https://www.php.net/manual/en/book.pdo.php">PHP PDO Doc</a></li>
+</ul>
+
+<blockquote>Selamat Belajar dan Bekerja</blockquote>
+<small>Salam : puji ermanto</small>

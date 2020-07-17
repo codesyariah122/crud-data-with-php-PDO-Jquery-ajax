@@ -1,9 +1,5 @@
 <?php 
-if(@$_GET['page'] == 'add' || @$_GET['page'] == 'edit' || @$_GET['page'] == 'del'):
-  require_once '../functions.php';
-else:
-  require_once 'functions.php';
-endif;
+require_once '../functions.php';
 $viewData = view("SELECT * FROM `product`"); 
 
 ?>

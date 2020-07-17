@@ -10,6 +10,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <script type="text/javascript" src="assets/dist/sweetalert2.all.min.js"></script>
     <title>stylishtic product</title>
   </head>
   <body>
@@ -20,20 +21,20 @@
 
         <div class="col-md-5 mt-2 pt-2">
             <button id="add" class="btn btn-primary btn-lg mr-2">Add New Product</button>
-
-            <button id="reload" class="btn btn-success btn-lg">Reload</button>
         </div>
 
         <div class="col-md-12">
-          <div id="viewdata">
-            <?php layout($dir, 'view', '.php') ?>
-          </div>
+          <div id="viewdata"></div>
         </div>
 
       </div>
 
       <div col="col-md-4">
         <div id="cruddata"></div>
+      </div>
+
+      <div class="col-md-4">
+        <div id="animated"></div>
       </div>
 
     </div>

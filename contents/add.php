@@ -3,7 +3,7 @@ require_once '../functions.php';
 if(@$_GET['page'] == 'add'):
 
 	if(addAjax($_POST, 'product') > 0):
-		echo "success";
+		echo @$_POST;
 	endif;
 
 else:
@@ -14,9 +14,15 @@ else:
 	li{
 		list-style: none;
 	}
+	#close{
+		margin-top:-0.5rem;
+	}
 </style>
-<fieldset>
-	<legend class="text-primary text-center">Add New Product</legend>
+<fieldset class="card mt-5 mb-5">
+	<div class="row justify-content-end">
+		<button id="close" class="btn btn-md"><i class="far fa-fw fa-window-close fa-lg"></i></button>
+	</div>
+	<h4 class="text-primary text-center">Add New Product</h4>
 
 	<ul>
 		<li>

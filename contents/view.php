@@ -1,5 +1,6 @@
 <?php 
 require_once '../functions.php';
+
 $viewData = view("SELECT * FROM `product`"); 
 
 ?>

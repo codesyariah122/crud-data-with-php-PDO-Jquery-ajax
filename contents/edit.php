@@ -9,7 +9,7 @@ $viewById = view("SELECT * FROM `product` WHERE `id` = '$id'");
 
 if(@$_GET['page'] == 'edit'):
 	if(editAjax($_POST, 'product') > 0):
-		echo @$_POST;
+		echo "success";
 	endif;
 else:
 ?>
@@ -18,15 +18,19 @@ else:
 		list-style: none;
 	}
 	#close{
-		margin-top:-0.5rem;
+		margin-top:-0.7rem;
 	}
 </style>
-<fieldset class="card mt-5 mb-5">
-	<div class="row justify-content-end">
-		<button id="close" class="btn btn-md"><i class="far fa-fw fa-window-close fa-lg"></i></button>
-	</div>
-	<h4 class="text-info text-center"><b>Edit Product Data</b></h4>
 
+<fieldset class="card mt-5 mb-5">
+
+	<div class="row justify-content-end">
+		<button id="close" class="btn btn-lg"><i class="far fa-fw fa-lg fa-window-close"></i></button>
+	</div>
+
+	<h4 class="text-info text-center mt-2"><b>Edit Product Data</b></h4>
+
+<div class="col mx-auto">
 	<ul>
 		<li>
 			<input type="hidden" id="productid" value="<?=$viewById[0]['id']?>">
@@ -45,6 +49,8 @@ else:
 			<button id="edit" class="mt-5 btn btn-primary btn-lg">Edit Product</button>
 		</li>
 	</ul>
+</div>
+
 
 </fieldset>
 

@@ -1,6 +1,10 @@
 <?php require_once 'functions.php'; $dir='templates'; ?>
 
+<!-- interpolasi layout -->
+<!-- ini header -->
 <?php layout($dir, 'header', '.php') ?>
+
+<!-- ini content -->
     <div class="container">
       
       <div class="row">
@@ -19,8 +23,8 @@
         <div id="cruddata"></div>
       </div>
 
-      <div id="animated"></div>
+      <div id="animasi"></div>
 
     </div>
-    
+<!-- ini footer -->
 <?php layout($dir, 'footer', '.php') ?>

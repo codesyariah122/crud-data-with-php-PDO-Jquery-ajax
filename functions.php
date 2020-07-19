@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+
 function layout($dir, $file, $ext){
 	global $dir;
 	if(file_exists($dir.'/'.$file.$ext)){

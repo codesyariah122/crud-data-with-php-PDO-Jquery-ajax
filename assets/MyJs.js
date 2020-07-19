@@ -49,6 +49,11 @@ $(document).ready(function(){
 							    	$('#viewdata').load('contents/view.php').fadeIn(100);
 							    	$('#animated').hide('slow').slideUp(1000);
 							    }, 3000);
+							    Swal.fire(
+							      'New product has been added',
+							      'Your file has been saved on database.',
+							      'success'
+							    );
 							  }
 							})							
 						
@@ -127,7 +132,6 @@ $(document).ready(function(){
 					data: 'id='+id,
 					success: function(response){
 						if(response){
-							$('#viewdata').load('contents/view.php').fadeIn(1000);
 							$('#cruddata').hide('slow').fadeOut(1000);
 						}else{
 							alert('Failed deleted data');
@@ -142,7 +146,8 @@ $(document).ready(function(){
 			    $('#animated').load('contents/animated.php').fadeIn(1500);
 			    setTimeout(function(){
 			    	$('#animated').hide('slow').slideUp(1000);
-			    }, 2500);
+			    	$('#viewdata').load('contents/view.php').fadeIn(1000);
+			    }, 1500);
 			  }
 			});
 

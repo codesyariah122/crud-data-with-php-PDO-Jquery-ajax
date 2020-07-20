@@ -29,12 +29,18 @@ $(document).ready(function(){
 		if(productCode == '' || productName == '' || productPrice == ''){
 			alert("Form data is empty, please try again");
 		}else{
+			let AjaxTime = new Date().getTime();
 			$.ajax({
 				url: 'contents/add.php?page=add',
 				type: 'post',
+				startTime: new Date().getTime(),
 				data: 'productcode='+productCode+'&productname='+productName+'&productprice='+productPrice,
 				success: function(response){
 					if(response == 'success'){
+						let time = (new Date().getTime() - this.startTime);
+
+        				console.log('This request took '+time+' ms');
+
 						Swal.fire({
 						  title: 'New product added',
 						  text: "You product will be saved, product name : "+productName,
@@ -55,7 +61,7 @@ $(document).ready(function(){
 							setTimeout(function(){
 								$('#viewdata').load('contents/view.php').fadeIn(100);
 								$('#animasi').hide('slow').slideUp(1000);
-							}, 3000);
+							}, time);
 						  }
 						});
 
@@ -96,15 +102,19 @@ $(document).ready(function(){
 			$.ajax({
 				url: 'contents/edit.php?page=edit',
 				type: 'post',
+				startTime: new Date().getTime(),
 				data: 'productcode='+productCode+'&productname='+productName+'&productprice='+productPrice+'&productid='+productId,
 				success: function(response){
 					if(response == 'success'){
+						let time = (new Date().getTime() - this.startTime);
+						console.log('This request took '+time+' ms');
+
 						$('#cruddata').hide('slow').fadeOut(1000);
 						$('#animasi').load('contents/animated2.php').fadeIn(1500);
 						setTimeout(function(){
 							$('#viewdata').load('contents/view.php').fadeIn(1000);
 							$('#animasi').hide('slow').slideUp(1000);
-						}, 3000);
+						}, time);
 						
 					}else{
 						alert('Failed update');
@@ -130,9 +140,13 @@ $(document).ready(function(){
 		  	$.ajax({
 				url: 'contents/delete.php?page=del',
 				type: 'post',
+				startTime: new Date().getTime(),
 				data: 'id='+id,
 				success: function(response){
 					if(response){
+						let time = (new Date().getTime() - this.startTime);
+						console.log('This request took '+time+' ms');
+
 						$('#cruddata').hide('slow').fadeOut(1000);
 							Swal.fire(
 						      'Deleted! product data with id : '+id,
@@ -143,7 +157,7 @@ $(document).ready(function(){
 						setTimeout(function(){
 							$('#animasi').hide('slow').slideUp(1000);
 							$('#viewdata').load('contents/view.php').fadeIn(1000);
-						}, 2500);   
+						}, time);   
 
 					}else{
 						alert('Failed deleted data');

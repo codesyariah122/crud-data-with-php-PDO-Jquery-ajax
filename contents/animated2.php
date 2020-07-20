@@ -1,6 +1,6 @@
 <style type="text/css">
 	
-	img{
+	.img-responsive img{
 		margin-top:-4rem;
 		z-index: -1;
 	}

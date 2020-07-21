@@ -2,11 +2,13 @@
 require_once 'config.php';
 
 function layout($dir, $file, $ext){
-	global $dir;
+	//global $dir;
 	if(file_exists($dir.'/'.$file.$ext)){
 		require_once $dir.'/'.$file.$ext;
 	}else{
-		echo "<h1 class='text-danger text-center'>Layout Not Found</h1>";
+		require_once $file.$ext;
+
+		//echo "<h1 class='text-danger text-center'>Layout Not Found</h1>";
 	}
 }
 
@@ -84,4 +86,12 @@ function deleteAjax($data, $table){
 	$delete->execute();
 
 	return $delete->rowCount();
+}
+
+function searchData($keyword){
+	$query = "SELECT * FROM `product` 
+				WHERE 
+			`product_name` LIKE '%$keyword%'
+			";
+	return view($query,'product' );
 }

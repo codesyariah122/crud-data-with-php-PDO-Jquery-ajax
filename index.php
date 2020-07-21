@@ -1,4 +1,4 @@
-<?php require_once 'functions.php'; $dir='templates'; ?>
+<?php require_once 'functions.php'; $dir='templates'; $content = 'contents'; ?>
 
 <!-- interpolasi layout -->
 <!-- ini header -->

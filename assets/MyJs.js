@@ -17,6 +17,24 @@ $('#cruddata').on('click', '#close', function(){
 	}, 3000);
 });
 
+
+
+$('#viewdata').on('keyup', '#keyword', function(){
+	const keyword = $('#keyword').val();
+	$.ajax({
+		url: 'contents/search_product.php?keyword='+keyword,
+		type: 'post',
+		data: 'keyword='+keyword,
+		success: function(response){
+			if(response){
+				$('#view-product').html(response);
+			}else{
+				alert("failed data");
+			}
+		}
+	});
+});
+
 $(document).ready(function(){
 	// load view data 
 	$('#viewdata').load('contents/view.php').fadeIn(1000);
@@ -29,7 +47,6 @@ $(document).ready(function(){
 		if(productCode == '' || productName == '' || productPrice == ''){
 			alert("Form data is empty, please try again");
 		}else{
-			let AjaxTime = new Date().getTime();
 			$.ajax({
 				url: 'contents/add.php?page=add',
 				type: 'post',

@@ -1,16 +1,6 @@
-<?php 
-require_once '../functions.php';
-
-
-?>
-
 <h1 class="text-primary text-center mt-4 pt-4">Product Table</h1>
-    <div class="form-group">
-        <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Input search of keywords" autocomplete="off">
-    </div>
-    <div class="form-group">
-        <button class="btn btn-primary btn-search" id="search-data" type="submit" name="search">Search Data</button>
-    </div>
+
+<input type="text" name="keyword" id="keyword" class="form-control" placeholder="Type keyword for this search the product ... " autocomplete="off"> <!-- <div id="loading"></div> -->
 
 <table class="table table-hover">
   <thead>
@@ -22,12 +12,10 @@ require_once '../functions.php';
       <th scope="col">Operation Table</th>
     </tr>
   </thead>
-  <tbody id="view-product">
-
+  <tbody id="product-data">
   </tbody>
 </table>
 
 <script type="text/javascript">
-  $('#search-data').hide();
-  $('#view-product').load('contents/search_product.php').fadeIn(1000);
+  $('#product-data').load('contents/product_data.php').fadeIn(1000);
 </script>

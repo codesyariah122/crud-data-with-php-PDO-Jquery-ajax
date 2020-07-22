@@ -17,22 +17,27 @@ $('#cruddata').on('click', '#close', function(){
 	}, 3000);
 });
 
-
-
 $('#viewdata').on('keyup', '#keyword', function(){
 	const keyword = $('#keyword').val();
 	$.ajax({
-		url: 'contents/search_product.php?keyword='+keyword,
+		url: 'contents/product_data.php?keyword='+keyword,
 		type: 'post',
+		startTime: new Date().getTime(),
 		data: 'keyword='+keyword,
 		success: function(response){
 			if(response){
-				$('#view-product').html(response);
+				let time = (new Date().getTime() - this.startTime);
+				$('#loading').load('contents/loading.php').fadeIn(time);
+				setTimeout(function(){
+					$('#loading').hide('slow').slideUp(1000);
+					$('#product-data').html(response);
+				}, time);
+				
 			}else{
-				alert("failed data");
+				Swal.fire("No product your search");
 			}
 		}
-	});
+	})	
 });
 
 $(document).ready(function(){
@@ -55,9 +60,7 @@ $(document).ready(function(){
 				success: function(response){
 					if(response == 'success'){
 						let time = (new Date().getTime() - this.startTime);
-
-        				console.log('This request took '+time+' ms');
-
+						console.log("This request took "+time+" ms");
 						Swal.fire({
 						  title: 'New product added',
 						  text: "You product will be saved, product name : "+productName,
@@ -124,7 +127,7 @@ $(document).ready(function(){
 				success: function(response){
 					if(response == 'success'){
 						let time = (new Date().getTime() - this.startTime);
-						console.log('This request took '+time+' ms');
+						console.log("This request took "+time+" ms");
 
 						$('#cruddata').hide('slow').fadeOut(1000);
 						$('#animasi').load('contents/animated2.php').fadeIn(1500);
@@ -157,12 +160,12 @@ $(document).ready(function(){
 		  	$.ajax({
 				url: 'contents/delete.php?page=del',
 				type: 'post',
-				startTime: new Date().getTime(),
 				data: 'id='+id,
+				startTime: new Date().getTime(),
 				success: function(response){
 					if(response){
 						let time = (new Date().getTime() - this.startTime);
-						console.log('This request took '+time+' ms');
+						console.log("This request took "+time+" ms");
 
 						$('#cruddata').hide('slow').fadeOut(1000);
 							Swal.fire(

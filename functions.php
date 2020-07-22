@@ -6,9 +6,7 @@ function layout($dir, $file, $ext){
 	if(file_exists($dir.'/'.$file.$ext)){
 		require_once $dir.'/'.$file.$ext;
 	}else{
-		require_once $file.$ext;
-
-		//echo "<h1 class='text-danger text-center'>Layout Not Found</h1>";
+		echo "<h1 class='text-danger text-center'>Layout Not Found</h1>";
 	}
 }
 
@@ -89,9 +87,11 @@ function deleteAjax($data, $table){
 }
 
 function searchData($keyword){
-	$query = "SELECT * FROM `product` 
-				WHERE 
-			`product_name` LIKE '%$keyword%'
+	$query = "SELECT * FROM `product` WHERE 
+				`product_code` LIKE '%$keyword%' OR
+				`product_name` LIKE '%$keyword%' OR
+				`product_price` LIKE '%$keyword%'
+				ORDER BY `id` DESC
 			";
-	return view($query,'product' );
+	return view($query);
 }

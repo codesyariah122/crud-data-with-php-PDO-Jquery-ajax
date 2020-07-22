@@ -1,17 +1,19 @@
-<?php //if(empty($viewData)): ?>
-<!--   <tr>
-    <td colspan="3" class="text-center text-red">No data on product table</td>
-  </tr> -->
-<?php //endif; ?>
-<?php 
+<?php  
 require_once '../functions.php';
 if(@$_GET['keyword'] == @$_POST['keyword']):
     if(searchData(@$_POST['keyword'])):
+      usleep(700000);
       $viewData = searchData(@$_POST['keyword']);
-      var_dump($viewData);
     endif;
 endif;
 ?>
+
+
+<?php if(empty($viewData)): ?>
+  <tr>
+    <td colspan="3">No data on this table product</td>
+  </tr>
+<?php endif; ?>
 
  <?php $no=1; foreach($viewData as $view): ?>
     <tr>

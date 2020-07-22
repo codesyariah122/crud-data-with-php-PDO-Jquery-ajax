@@ -18,26 +18,22 @@ $('#cruddata').on('click', '#close', function(){
 });
 
 $('#viewdata').on('keyup', '#keyword', function(){
+	$('.loader').show();
 	const keyword = $('#keyword').val();
+
 	$.ajax({
 		url: 'contents/product_data.php?keyword='+keyword,
 		type: 'post',
-		startTime: new Date().getTime(),
 		data: 'keyword='+keyword,
 		success: function(response){
 			if(response){
-				let time = (new Date().getTime() - this.startTime);
-				$('#loading').load('contents/loading.php').fadeIn(time);
-				setTimeout(function(){
-					$('#loading').hide('slow').slideUp(1000);
-					$('#product-data').html(response);
-				}, time);
-				
+				$('.loader').hide('slow').fadeOut(1000);
+				$('#product-data').html(response);
 			}else{
-				Swal.fire("No product your search");
+				Swal.fire("Data no found");
 			}
 		}
-	})	
+	});
 });
 
 $(document).ready(function(){

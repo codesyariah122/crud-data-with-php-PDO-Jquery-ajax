@@ -92,6 +92,6 @@ function searchData($keyword){
 				`product_name` LIKE '%$keyword%' OR
 				`product_price` LIKE '%$keyword%'
 				ORDER BY `id` DESC
-			";
+	";
 	return view($query);
 }

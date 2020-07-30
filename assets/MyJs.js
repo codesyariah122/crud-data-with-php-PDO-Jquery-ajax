@@ -121,7 +121,7 @@ $(document).ready(function(){
 				startTime: new Date().getTime(),
 				data: 'productcode='+productCode+'&productname='+productName+'&productprice='+productPrice+'&productid='+productId,
 				success: function(response){
-					if(response == 'success'){
+					if(response){
 						let time = (new Date().getTime() - this.startTime);
 						console.log("This request took "+time+" ms");
 

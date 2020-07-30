@@ -46,7 +46,9 @@ function view($query){
 
 
 function addAjax($data, $file, $table){
-	//var_dump(@$file);
+	// var_dump(@$file);
+	// var_dump(@$data);
+
 	$dbh = connect();
 	$productCode = @$data['productcode'];
 	$productImage = upload($file, '../assets/images/');
@@ -71,8 +73,6 @@ function addAjax($data, $file, $table){
 }
 
 function editAjax($data, $file, $table){
-	// var_dump(@$file);
-	// var_dump(@$data);
 	$productCode = @$data['productcode'];
 	$productImage = @$data['productimage'];
 	$productName = @$data['productname'];
@@ -123,55 +123,46 @@ function upload($file, $dir){
 	$error = @$file['productimage']['error'];
 	$tmpName = @$file['productimage']['tmp_name'];
 
-	//cek apakah tidak ada gambar yang di upload
-
-	if($error === 4):
-
-		$kosong = true;
-		if(isset($kosong)):
-			echo "gambar belum diupload";
-        endif;
-
-		return false;
-	endif;
-
-	//cek apakah yang diupload adalah gambar
-	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-	$ekstensiGambar = explode('.', $namaFile);
-	$ekstensiGambar = strtolower(end($ekstensiGambar));
-
-	echo $ekstensiGambar;
-
-	if(!in_array($ekstensiGambar, $ekstensiGambarValid)):
-		$noEkstensi = true;
-
-          if(isset($noEkstensi)):
-          	echo 'File yang diupload bukan gambar';
-           endif;
-
-		return false;
-	endif;
-
-	//cek jika ukurannya terlalu besar
-	if($ukuranFile > 10000000){
-		$sizeError = true;
-
-
-
-          if(isset($sizeError)):
-          	echo 'File yang diupload terlalu besar';
-           endif;
-
+	// validasi error
+	if($error === 4){
+		$empty = true;
+		if(isset($empty)){
+			echo "Image not upload";
+		}
 		return false;
 	}
 
-	//lolos pengecekan gambar siap di upload
-	//generate nama gambar baru
+	// validasi ekstensi gambar
+	$ekstensiValid = ['jpg', 'jpeg', 'png', 'gif'];
+	$ekstensiGambar = explode('.', $namaFile);
+	$ekstensiGambar = strtolower(end($ekstensiGambar));
+	echo $ekstensiGambar;
+
+		if(!in_array($ekstensiGambar, $ekstensiValid)){
+			$noEkstensi = true;
+			if(isset($noEkstensi)){
+				echo "File no image";
+			}
+		return false;
+		}
+	// cek ukuran gambar
+		if($ukuranFile > 700000){
+			$sizeError = true;
+			if(isset($sizeError)){
+				echo "File image is too big";
+			}
+			return false;
+		}
+
+	// lolos pengecekan
+
 	$namaFileBaru = uniqid();
 	$namaFileBaru .= '.';
 	$namaFileBaru .= $ekstensiGambar;
 
+	// lakukan process upload
 	move_uploaded_file($tmpName, $dir.$namaFileBaru);
 
 	return $namaFileBaru;
+
 }

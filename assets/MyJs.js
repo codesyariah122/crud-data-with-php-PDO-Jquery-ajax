@@ -68,10 +68,11 @@ $(document).ready(function(){
 				data: form_data,
 				processData: false,
 				contentType: false,
-				cache: false,
+				async: false,
 				success: function(response){
 					if(response){
 						//alert(response);
+
 						let time = (new Date().getTime() - this.startTime);
 						console.log("This request took "+time+" ms");
 
@@ -95,7 +96,7 @@ $(document).ready(function(){
 							setTimeout(function(){
 								$('#viewdata').load('contents/view.php').fadeIn(100);
 								$('#animasi').hide('slow').slideUp(1000);
-							}, 2500);
+							}, time);
 						  }
 						});
 
@@ -131,8 +132,7 @@ $(document).ready(function(){
 		const productPrice = $('#productprice').val();
 		const productId = $('#productid').val();
 
-		if(productName == '' || productPrice == '' || productImage == undefined){
-			//alert('No New update !');
+		if(productImage == undefined || productName == '' || productPrice == ''){
 			Swal.fire({
 			  position: 'top-end',
 			  icon: 'success',
@@ -164,32 +164,31 @@ $(document).ready(function(){
 						console.log("This request took "+time+" ms");
 
 						Swal.fire({
-							title: 'Success Update',
-							text: "New update from product : "+productName,
-							icon: 'success',
-							showCancelButton: false,
-							confirmButtonColor: '#3085d6',
-							cancelButtonColor: '#d33',
-							confirmButtonText: 'Go view!'
-							}).then((result) => {
-								if (result.value) {
-									$('#cruddata').slideUp(1000).hide(1500);
-									$('#animasi').load('contents/animated2.php').fadeIn(1000);
-									$('#viewdata').load('contents/view.php').fadeIn(100);
-								setTimeout(function(){
-									$('#animasi').hide('slow').slideUp(1500);
-								}, 2500);
-							}
+						  title: 'New product update',
+						  text: "You product will be saved, product name : "+productName,
+						  icon: 'success',
+						  showCancelButton: false,
+						  confirmButtonColor: '#808fe6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'View Data Product'
+						}).then((result) => {
+						  if (result.value) {
+						  	$('#cruddata').hide('slow').fadeOut(1000);
+							$('#animasi').load('contents/animated2.php').fadeIn(2500);
+							$('#viewdata').load('contents/view.php').fadeIn(100);
+							setTimeout(function(){
+								$('#animasi').hide('slow').slideUp(1000);
+							}, 2500);
+						  }
 						});
 						
 					}else{
 						$('#cruddata').slideUp(1000).hide(1500);
 						$('#animasi').load('contents/animated2.php').fadeIn(1000);
-						$('#viewdata').load('contents/view.php').fadeIn(100);
-							setTimeout(function(){
-								$('#animasi').hide('slow').slideUp(1500);
-							}, 2500);
-
+						$('#viewdata').load('contents/view.php').fadeIn(1000);
+						setTimeout(function(){
+							$('#animasi').hide('slow').slideUp(1000);
+						}, 2500);
 					}
 				}
 			});
@@ -229,7 +228,7 @@ $(document).ready(function(){
 						setTimeout(function(){
 							$('#animasi').hide('slow').slideUp(1000);
 							$('#viewdata').load('contents/view.php').fadeIn(1000);
-						}, 2500);   
+						}, time);   
 
 					}else{
 						alert('Failed deleted data');

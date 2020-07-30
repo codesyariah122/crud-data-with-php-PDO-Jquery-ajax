@@ -9,7 +9,6 @@ $viewById = view("SELECT * FROM `product` WHERE `id` = '$id'");
 
 if(@$_GET['page'] == 'edit'):
 
-	// editAjax($_POST, $_FILES, 'product');
 	if(editAjax($_POST, $_FILES, 'product') > 0):
 		echo "success";	
 	endif;
@@ -43,22 +42,20 @@ else:
 			</li>
 			<li>
 				<img src="assets/images/<?=$viewById[0]['product_image']?>" width="200" height="200" class="img-responsive mt-2">
-				<div class="form-group mt-3 mb-3">
-				   <label for="productimage">Upload product image</label>
-				   <input type="file" class="form-control-file" id="productimage">
-				</div>
+				<div class="form-group">
+				   <label for="productimage">Choose file for upload</label>
+				   <input type="file" class="form-control-file" id="productimage" value="<?=$viewById[0]['product_image']?>">
+				 </div>
 			</li>
 			<li>
 				<label for="productname">Product Name</label>
 				<input type="text" id="productname" class="form-control" value="<?=$viewById[0]['product_name']?>">
 			</li>
 			<li>
-				<div class="form-group">
-				   <label for="productdescription">Product description</label>
-				   <textarea class="form-control" id="productdescription" cols="5" rows="3">
-				   	<?=$viewById[0]['product_description']?>
-				   </textarea>
-				</div>
+				<label for="productdescription">Product Description</label>
+    			<textarea class="form-control" id="productdescription" cols="5" rows="3">
+    				<?=$viewById[0]['product_description']?>
+    			</textarea>
 			</li>
 			<li>
 				<label for="productprice">Product Price</label>

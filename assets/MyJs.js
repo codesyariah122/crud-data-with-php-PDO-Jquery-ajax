@@ -27,36 +27,56 @@ $('#viewdata').on('keyup', '#keyword', function(){
 		data: 'keyword='+keyword,
 		success: function(response){
 			if(response){
-				$('.loader').hide('slow').fadeOut(1000);
+				$('.loader').hide().slideUp(1000);
 				$('#product-data').html(response);
 			}else{
-				Swal.fire("Data no found");
+				Swal.fire('Product data no found');
 			}
 		}
 	});
+
+
 });
 
 $(document).ready(function(){
 	// load view data 
 	$('#viewdata').load('contents/view.php').fadeIn(1000);
 
-	$('#cruddata').on('click', '#add', function(){
+	$('#cruddata').on('click', '#add', function(e){
 		const productCode = $('#productcode').val();
+		const productImage = $('#productimage').prop('files')[0];
 		const productName = $('#productname').val();
+		const productDesc = $('#productdescription').val();
 		const productPrice = $('#productprice').val();
 
-		if(productCode == '' || productName == '' || productPrice == ''){
+
+		if(productCode == '' || productImage == undefined || productName == '' || productPrice == ''){
 			alert("Form data is empty, please try again");
+			e.preventDefault();
 		}else{
+			let form_data = new FormData();
+			form_data.append('productcode', productCode);
+			form_data.append('productimage', productImage);
+			form_data.append('productname', productName);
+			form_data.append('productdescription', productDesc);
+			form_data.append('productprice', productPrice);
+
 			$.ajax({
 				url: 'contents/add.php?page=add',
 				type: 'post',
 				startTime: new Date().getTime(),
-				data: 'productcode='+productCode+'&productname='+productName+'&productprice='+productPrice,
+				data: form_data,
+				processData: false,
+				contentType: false,
+				cache: false,
 				success: function(response){
-					if(response == 'success'){
+					if(response){
+						//alert(response);
+						let newImage = $('#newimage').attr('data-image');
+
 						let time = (new Date().getTime() - this.startTime);
 						console.log("This request took "+time+" ms");
+
 						Swal.fire({
 						  title: 'New product added',
 						  text: "You product will be saved, product name : "+productName,
@@ -107,33 +127,71 @@ $(document).ready(function(){
 	//proses edit 
 	$('#cruddata').on('click', '#edit', function(){
 		const productCode = $('#productcode').val();
+		const productImage = $('#productimage').prop('files')[0];
 		const productName = $('#productname').val();
+		const productDesc = $('#productdescription').val();
 		const productPrice = $('#productprice').val();
 		const productId = $('#productid').val();
 
-		if(productCode == '' || productName == '' || productPrice == ''){
-			alert('No update !');
+		if(productName == '' || productPrice == '' || productImage == undefined){
+			//alert('No New update !');
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: 'No new product update',
+			  showConfirmButton: false,
+			  timer: 1500
+			});
 			$('#cruddata').hide('slow').fadeOut(1000);
 		}else{
+			let form_data = new FormData();
+			form_data.append('productid', productId);
+			form_data.append('productcode', productCode);
+			form_data.append('productimage', productImage);
+			form_data.append('productname', productName);
+			form_data.append('productdescription', productDesc);
+			form_data.append('productprice', productPrice);
+
 			$.ajax({
 				url: 'contents/edit.php?page=edit',
 				type: 'post',
 				startTime: new Date().getTime(),
-				data: 'productcode='+productCode+'&productname='+productName+'&productprice='+productPrice+'&productid='+productId,
+				data: form_data,
+				processData: false,
+				contentType: false,
+				async: false,
 				success: function(response){
 					if(response == 'success'){
-						let time = (new Date().getTime() - this.startTime);
+						let time = (new Date().getTime() - this.startTIme);
 						console.log("This request took "+time+" ms");
 
-						$('#cruddata').hide('slow').fadeOut(1000);
-						$('#animasi').load('contents/animated2.php').fadeIn(1500);
-						setTimeout(function(){
-							$('#viewdata').load('contents/view.php').fadeIn(1000);
-							$('#animasi').hide('slow').slideUp(1000);
-						}, time);
+						Swal.fire({
+							title: 'Success Update',
+							text: "New update from product : "+productName,
+							icon: 'success',
+							showCancelButton: false,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Go view!'
+							}).then((result) => {
+								if (result.value) {
+									$('#cruddata').slideUp(1000).hide(1500);
+									$('#animasi').load('contents/animated2.php').fadeIn(1000);
+									$('#viewdata').load('contents/view.php').fadeIn(100);
+								setTimeout(function(){
+									$('#animasi').hide('slow').slideUp(1500);
+								}, 2500);
+							}
+						});
 						
 					}else{
-						alert('Failed update');
+						$('#cruddata').slideUp(1000).hide(1500);
+						$('#animasi').load('contents/animated2.php').fadeIn(1000);
+						$('#viewdata').load('contents/view.php').fadeIn(100);
+							setTimeout(function(){
+								$('#animasi').hide('slow').slideUp(1500);
+							}, 2500);
+
 					}
 				}
 			});
@@ -156,8 +214,8 @@ $(document).ready(function(){
 		  	$.ajax({
 				url: 'contents/delete.php?page=del',
 				type: 'post',
-				data: 'id='+id,
 				startTime: new Date().getTime(),
+				data: 'id='+id,
 				success: function(response){
 					if(response){
 						let time = (new Date().getTime() - this.startTime);
@@ -173,7 +231,7 @@ $(document).ready(function(){
 						setTimeout(function(){
 							$('#animasi').hide('slow').slideUp(1000);
 							$('#viewdata').load('contents/view.php').fadeIn(1000);
-						}, time);   
+						}, 2500);   
 
 					}else{
 						alert('Failed deleted data');
@@ -183,8 +241,27 @@ $(document).ready(function(){
 
 		  }
 		});
-
-
 	});
+
+	$('#viewdata').on('click', '.detail', function(){
+		const dataId = $(this).data('id');
+		const productCode = $(this).attr('data-code');
+		$.ajax({
+			url: 'contents/detail.php?detail='+dataId,
+			type: 'post',
+			data: 'dataId='+dataId,
+			success: function(response){
+				if(response){
+					console.log("Ok");
+					$('#detail-product').html(response);
+					$('#product-code').html(productCode);
+					$('#detailData').modal('show');
+				}else{
+					Swal.fire("No product detail");
+				}
+			}
+		});
+	});
+
 });
 

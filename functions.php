@@ -45,33 +45,53 @@ function view($query){
 }
 
 
-function addAjax($data, $table){
-	// var_dump($data);
+function addAjax($data, $file, $table){
+	//var_dump(@$file);
 	$dbh = connect();
 	$productCode = @$data['productcode'];
+	$productImage = upload($file, '../assets/images/');
 	$productName = @$data['productname'];
+	$productDesc = @$data['productdescription'];
 	$productPrice = @$data['productprice'];
 
-	$insertProduct = $dbh->prepare("INSERT INTO `$table` (id, product_code, product_name, product_price) VALUES ('', ?, ?, ?)");
+	if(!$productImage){
+		$productImage = 'no-product-image.png';
+	}
+
+	$insertProduct = $dbh->prepare("INSERT INTO `$table` (id, product_code, product_image, product_name, product_description, product_price) VALUES ('', ?, ?, ?, ?, ?)");
 	$insertProduct->bindParam(1, $productCode);
-	$insertProduct->bindParam(2, $productName);
-	$insertProduct->bindParam(3, $productPrice);
+	$insertProduct->bindParam(2, $productImage);
+	$insertProduct->bindParam(3, $productName);
+	$insertProduct->bindParam(4, $productDesc);
+	$insertProduct->bindParam(5, $productPrice);
 
 	$insertProduct->execute();
 
 	return $insertProduct->rowCount();
 }
 
-function editAjax($data, $table){
+function editAjax($data, $file, $table){
+	// var_dump(@$file);
+	// var_dump(@$data);
 	$productCode = @$data['productcode'];
+	$productImage = @$data['productimage'];
 	$productName = @$data['productname'];
-	$productPrice = @$data['productprice'];
+	$productDesc = @$data['productdescription'];
+ 	$productPrice = @$data['productprice'];
 	$productId = @$data['productid'];
+
+	if(!$productImage){
+		$productImage = upload($file, '../assets/images/');
+	}elseif(empty($productImage)){
+		$productImage = 'no-product-image.png';
+	}
+
 
 	$dbh = connect();
 
-	$edit = $dbh->prepare("UPDATE `$table` SET product_code = ?, product_name = ?, product_price = ? WHERE `id` = ?");
-	$edit->execute([$productCode, $productName, $productPrice, $productId]);
+	$edit = $dbh->prepare("UPDATE `$table` SET product_code = ?, product_image = ?, product_name = ?, product_description = ?, product_price = ? WHERE `id` = ?");
+	$edit->execute([$productCode, $productImage, $productName, $productDesc, $productPrice, $productId]);
+
 	return $edit->rowCount();
 }
 
@@ -88,10 +108,70 @@ function deleteAjax($data, $table){
 
 function searchData($keyword){
 	$query = "SELECT * FROM `product` WHERE 
-				`product_code` LIKE '%$keyword%' OR
-				`product_name` LIKE '%$keyword%' OR
-				`product_price` LIKE '%$keyword%'
-				ORDER BY `id` DESC
+			  `product_code` LIKE '%$keyword' OR
+			  `product_name` LIKE '%$keyword%' OR 
+			  `product_price` LIKE '%$keyword%'
+			  ORDER BY `id` DESC
 	";
+
 	return view($query);
+}
+
+function upload($file, $dir){
+	$namaFile = @$file['productimage']['name'];
+	$ukuranFile = @$file['productimage']['size'];
+	$error = @$file['productimage']['error'];
+	$tmpName = @$file['productimage']['tmp_name'];
+
+	//cek apakah tidak ada gambar yang di upload
+
+	if($error === 4):
+
+		$kosong = true;
+		if(isset($kosong)):
+			echo "gambar belum diupload";
+        endif;
+
+		return false;
+	endif;
+
+	//cek apakah yang diupload adalah gambar
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode('.', $namaFile);
+	$ekstensiGambar = strtolower(end($ekstensiGambar));
+
+	echo $ekstensiGambar;
+
+	if(!in_array($ekstensiGambar, $ekstensiGambarValid)):
+		$noEkstensi = true;
+
+          if(isset($noEkstensi)):
+          	echo 'File yang diupload bukan gambar';
+           endif;
+
+		return false;
+	endif;
+
+	//cek jika ukurannya terlalu besar
+	if($ukuranFile > 10000000){
+		$sizeError = true;
+
+
+
+          if(isset($sizeError)):
+          	echo 'File yang diupload terlalu besar';
+           endif;
+
+		return false;
+	}
+
+	//lolos pengecekan gambar siap di upload
+	//generate nama gambar baru
+	$namaFileBaru = uniqid();
+	$namaFileBaru .= '.';
+	$namaFileBaru .= $ekstensiGambar;
+
+	move_uploaded_file($tmpName, $dir.$namaFileBaru);
+
+	return $namaFileBaru;
 }

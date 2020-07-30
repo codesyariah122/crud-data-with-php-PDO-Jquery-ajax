@@ -8,6 +8,7 @@
   <li><a href="https://api.jquery.com/">apijquery doc</a></li>  
   <li><a href="https://www.w3schools.com/bootstrap4/bootstrap_get_started.asp">If you work with bootstrap css</a></li>
   <li><a href="https://www.php.net/manual/en/book.pdo.php">PHP PDO Doc</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData/append">web api javascript FormData.append()</a></li>  
 </ul>
 
 <blockquote>Selamat Belajar dan Bekerja</blockquote>

@@ -72,8 +72,6 @@ $(document).ready(function(){
 				success: function(response){
 					if(response){
 						//alert(response);
-						let newImage = $('#newimage').attr('data-image');
-
 						let time = (new Date().getTime() - this.startTime);
 						console.log("This request took "+time+" ms");
 
@@ -97,7 +95,7 @@ $(document).ready(function(){
 							setTimeout(function(){
 								$('#viewdata').load('contents/view.php').fadeIn(100);
 								$('#animasi').hide('slow').slideUp(1000);
-							}, time);
+							}, 2500);
 						  }
 						});
 

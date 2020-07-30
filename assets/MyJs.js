@@ -159,7 +159,7 @@ $(document).ready(function(){
 				contentType: false,
 				async: false,
 				success: function(response){
-					if(response == 'success'){
+					if(response){
 						let time = (new Date().getTime() - this.startTIme);
 						console.log("This request took "+time+" ms");
 

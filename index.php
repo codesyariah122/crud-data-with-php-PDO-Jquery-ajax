@@ -21,12 +21,12 @@
       
       <div class="container">
         <div class="row justify-content-center">
-          <div col="col-xs-12">
-            <div id="cruddata"></div>
-          </div>
+            <div col="col-xs-12">
+              <div id="cruddata"></div>
+            </div>    
         </div>
       </div>
-
+      
 
       <div id="animasi"></div>
 

@@ -2,7 +2,8 @@
 require_once '../functions.php';
 if(@$_GET['page'] == 'add'):
 
-	//addAjax($_POST, $_FILES, 'product');
+	// addAjax($_POST, $_FILES, 'product');
+
 	if(addAjax($_POST, $_FILES, 'product') > 0):
 		//usleep(700000);
 		echo "success";
@@ -29,7 +30,7 @@ else:
 		<button id="close" class="btn btn-lg"><i class="far fa-fw fa-lg fa-window-close"></i></button>	
 	</div>
 
-	<h4 class="text-primary text-center mt-2">Add New Product</h4>
+	<h4 class="text-primary text-center mt-2 mb-2">Add New Product</h4>
 
 <div class="col mx-auto">
 	<ul>
@@ -39,8 +40,8 @@ else:
 				<input type="text" id="productcode" class="form-control">
 			</li>
 			<li>
-				<div class="form-group">
-				   <label for="productimage">Choose file</label>
+				 <div class="form-group">
+				   <label for="productimage">Upload product image</label>
 				   <input type="file" class="form-control-file" id="productimage">
 				 </div>
 			</li>
@@ -56,7 +57,7 @@ else:
 				<label for="productprice">Product Price</label>
 				<input type="number" id="productprice" class="form-control">
 			</li>
-		</form>		
+		</form>
 		<li>
 			<button id="add" class="mt-5 btn btn-primary btn-lg">Add Product</button>
 		</li>

@@ -10,11 +10,16 @@
 </style>
 <h1 class="text-primary text-center mt-4 pt-4">Product Table</h1>
 
-<div class="row mb-5">
+<div class="row mt-3 mb-3 mx-auto">
   <div class="col-xs-12">
-      <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Type keyword ... " autocomplete="off">
+      <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Type keyword ... " autocomplete="off" autofocus>
       <img src="assets/img/animated.gif" class="loader">
   </div>
+</div>
+  
+<div id="pagging"></div>
+
+<div id="modal-data">
 </div>
 
 <table class="table table-hover">
@@ -32,5 +37,7 @@
 
 
 <script type="text/javascript">
-  $('#product-data').load('contents/product_data.php').fadeIn(1000);
+  $('#product-data').load('contents/product_data2.php').fadeIn(1000);
+  $('#modal-data').load('contents/modal.php');
+  $('#pagging').load('contents/paging.php');
 </script>

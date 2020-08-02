@@ -1,8 +1,9 @@
 <?php
 require_once 'config.php';
+$perPage = 3;
 
 function layout($dir, $file, $ext){
-	//global $dir;
+	global $dir;
 	if(file_exists($dir.'/'.$file.$ext)){
 		require_once $dir.'/'.$file.$ext;
 	}else{
@@ -46,18 +47,18 @@ function view($query){
 
 
 function addAjax($data, $file, $table){
-	// var_dump(@$file);
-	// var_dump(@$data);
+	// var_dump(@$data); //menangani pengolahan data
+	// var_dump(@$file); //menangani pengolahan input file
 
 	$dbh = connect();
 	$productCode = @$data['productcode'];
-	$productImage = upload($file, '../assets/images/');
+	$productImage = upload($file, '../assets/images/'); // disini kita deklarasikan fungsi uploadnya
 	$productName = @$data['productname'];
 	$productDesc = @$data['productdescription'];
 	$productPrice = @$data['productprice'];
 
 	if(!$productImage){
-		$productImage = 'no-product-image.png';
+		$productImage = 'no-product-image.jpg';
 	}
 
 	$insertProduct = $dbh->prepare("INSERT INTO `$table` (id, product_code, product_image, product_name, product_description, product_price) VALUES ('', ?, ?, ?, ?, ?)");
@@ -86,10 +87,10 @@ function editAjax($data, $file, $table){
 		$productImage = 'no-product-image.png';
 	}
 
-
 	$dbh = connect();
 
 	$edit = $dbh->prepare("UPDATE `$table` SET product_code = ?, product_image = ?, product_name = ?, product_description = ?, product_price = ? WHERE `id` = ?");
+
 	$edit->execute([$productCode, $productImage, $productName, $productDesc, $productPrice, $productId]);
 
 	return $edit->rowCount();
@@ -106,16 +107,17 @@ function deleteAjax($data, $table){
 	return $delete->rowCount();
 }
 
-function searchData($keyword){
+
+function searchData($keyword, $limitStart, $limit){
 	$query = "SELECT * FROM `product` WHERE 
 			  `product_code` LIKE '%$keyword' OR
 			  `product_name` LIKE '%$keyword%' OR 
-			  `product_price` LIKE '%$keyword%'
-			  ORDER BY `id` DESC
-	";
+			  `product_price` LIKE '%$keyword%' 
+			  LIMIT $limitStart, $limit";
 
 	return view($query);
 }
+
 
 function upload($file, $dir){
 	$namaFile = @$file['productimage']['name'];
@@ -123,46 +125,50 @@ function upload($file, $dir){
 	$error = @$file['productimage']['error'];
 	$tmpName = @$file['productimage']['tmp_name'];
 
-	// validasi error
 	if($error === 4){
 		$empty = true;
 		if(isset($empty)){
-			echo "Image not upload";
+			echo "Sory ... upload image error";
 		}
 		return false;
 	}
 
-	// validasi ekstensi gambar
-	$ekstensiValid = ['jpg', 'jpeg', 'png', 'gif'];
+	// cek ekstensi file yang diupload
+	// file harus berekstensi gambar atau image
+	$ekstensiValid = ['jpg', 'jpeg', 'png'];
 	$ekstensiGambar = explode('.', $namaFile);
 	$ekstensiGambar = strtolower(end($ekstensiGambar));
+
 	echo $ekstensiGambar;
 
-		if(!in_array($ekstensiGambar, $ekstensiValid)){
-			$noEkstensi = true;
-			if(isset($noEkstensi)){
-				echo "File no image";
-			}
+	// validasi ekstensi file yang diupload
+	if(!in_array($ekstensiGambar, $ekstensiValid)){
+		$errorEkstensi = true;
+		if(isset($errorEkstensi)){
+			echo "File upload error, not image file";
+		}
 		return false;
-		}
-	// cek ukuran gambar
-		if($ukuranFile > 700000){
-			$sizeError = true;
-			if(isset($sizeError)){
-				echo "File image is too big";
-			}
-			return false;
-		}
+	}
 
-	// lolos pengecekan
+	// cek size file nya 
+	if($ukuranFile > 700000){
+		$errorSize = true;
+		if(isset($errorSize)){
+			echo "Image file too big size";
+		}
+		return false;
+	}
 
+	// lolos semua tahap validasi 
+	// terakhir kita buat nama file baru
+	// bertujuan agar file baru dengan nilai yang sama tida tertimpa
 	$namaFileBaru = uniqid();
 	$namaFileBaru .= '.';
 	$namaFileBaru .= $ekstensiGambar;
 
-	// lakukan process upload
+	// kita gunakan fungsi upload dari php
+	// move_uploaded_file()
 	move_uploaded_file($tmpName, $dir.$namaFileBaru);
 
 	return $namaFileBaru;
-
 }

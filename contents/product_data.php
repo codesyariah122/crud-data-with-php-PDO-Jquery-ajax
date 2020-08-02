@@ -1,11 +1,10 @@
 <?php 
 require_once '../functions.php'; 
 if(@$_GET['keyword'] == @$_POST['keyword']):
-    if(searchData(@$_POST['keyword'])):
-      usleep(700000);
-        $viewData = searchData(@$_POST['keyword']);
-    endif;
-endif;
+  $keyword = @$_POST['keyword'];
+    //usleep(700000);
+    $viewData = searchData($keyword);
+endif;   
 ?>
 
 <?php if(empty($viewData)): ?>
@@ -35,6 +34,7 @@ endif;
   </div>
 </div>
 
+
  <?php $no=1; foreach($viewData as $view): ?>
     <tr>
       <th scope="row"><?=$no?></th>
@@ -47,3 +47,6 @@ endif;
       </td>
     </tr>
 <?php $no++; endforeach; ?>
+
+
+

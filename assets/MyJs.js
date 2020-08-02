@@ -34,8 +34,7 @@ $('#viewdata').on('keyup', '#keyword', function(){
 			}
 		}
 	});
-
-
+	
 });
 
 $(document).ready(function(){

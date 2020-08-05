@@ -8,9 +8,11 @@ $viewById = view("SELECT * FROM `product` WHERE `id` = '$id'");
 //var_dump($viewById);
 
 if(@$_GET['page'] == 'edit'):
-	if(editAjax($_POST, 'product') > 0):
-		echo "success";
+
+	if(editAjax($_POST, $_FILES, 'product') > 0):
+		echo "success";	
 	endif;
+
 else:
 ?>
 <style type="text/css">
@@ -32,19 +34,34 @@ else:
 
 <div class="col mx-auto">
 	<ul>
-		<li>
+		<form method="post" enctype="multipart/form-data">
 			<input type="hidden" id="productid" value="<?=$viewById[0]['id']?>">
-			<label for="productcode">Product Code</label>
-			<input type="text" id="productcode" class="form-control" value="<?=$viewById[0]['product_code']?>">
-		</li>
-		<li>
-			<label for="productname">Product Name</label>
-			<input type="text" id="productname" class="form-control" value="<?=$viewById[0]['product_name']?>">
-		</li>
-		<li>
-			<label for="productprice">Product Price</label>
-			<input type="number" id="productprice" class="form-control" value="<?=$viewById[0]['product_price']?>">
-		</li>
+			<li>				
+				<label for="productcode">Product Code</label>
+				<input type="text" id="productcode" class="form-control" value="<?=$viewById[0]['product_code']?>">
+			</li>
+			<li>
+				<img src="assets/images/<?=$viewById[0]['product_image']?>" width="200" height="200" class="img-responsive mt-2">
+				<div class="form-group">
+				   <label for="productimage">Choose file for upload</label>
+				   <input type="file" class="form-control-file" id="productimage" value="<?=$viewById[0]['product_image']?>">
+				 </div>
+			</li>
+			<li>
+				<label for="productname">Product Name</label>
+				<input type="text" id="productname" class="form-control" value="<?=$viewById[0]['product_name']?>">
+			</li>
+			<li>
+				<label for="productdescription">Product Description</label>
+    			<textarea class="form-control" id="productdescription" cols="5" rows="3">
+    				<?=$viewById[0]['product_description']?>
+    			</textarea>
+			</li>
+			<li>
+				<label for="productprice">Product Price</label>
+				<input type="number" id="productprice" class="form-control" value="<?=$viewById[0]['product_price']?>">
+			</li>
+		</form>
 		<li>
 			<button id="edit" class="mt-5 btn btn-primary btn-lg">Edit Product</button>
 		</li>

@@ -2,11 +2,13 @@
 require_once '../functions.php';
 if(@$_GET['page'] == 'add'):
 
-	if(addAjax($_POST, 'product') > 0):
-		echo "success";
-	endif;
+	//addAjax($_POST, $_FILES, 'product');
+	addAjax($_POST, $_FILES, 'product', 'reaction');
+		//usleep(700000);
 
 else:
+
+
 
 ?>
 
@@ -29,18 +31,30 @@ else:
 
 <div class="col mx-auto">
 	<ul>
-		<li>
-			<label for="productcode">Product Code</label>
-			<input type="text" id="productcode" class="form-control">
-		</li>
-		<li>
-			<label for="productname">Product Name</label>
-			<input type="text" id="productname" class="form-control">
-		</li>
-		<li>
-			<label for="productprice">Product Price</label>
-			<input type="number" id="productprice" class="form-control">
-		</li>
+		<form method="post" enctype="multipart/form-data">
+			<li>
+				<label for="productcode">Product Code</label>
+				<input type="text" id="productcode" class="form-control">
+			</li>
+			<li>
+				<div class="form-group">
+				   <label for="productimage">Choose file</label>
+				   <input type="file" class="form-control-file" id="productimage">
+				 </div>
+			</li>
+			<li>
+				<label for="productname">Product Name</label>
+				<input type="text" id="productname" class="form-control">
+			</li>
+			<li>
+				<label for="productdescription">Product Description</label>
+    			<textarea class="form-control" id="productdescription" cols="5" rows="3"></textarea>
+			</li>
+			<li>
+				<label for="productprice">Product Price</label>
+				<input type="number" id="productprice" class="form-control">
+			</li>
+		</form>		
 		<li>
 			<button id="add" class="mt-5 btn btn-primary btn-lg">Add Product</button>
 		</li>

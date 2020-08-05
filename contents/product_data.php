@@ -1,29 +1,38 @@
-<?php  
-require_once '../functions.php';
-if(@$_GET['keyword'] == @$_POST['keyword']):
-    if(searchData(@$_POST['keyword'])):
-      usleep(700000);
-      $viewData = searchData(@$_POST['keyword']);
-    endif;
-endif;
-?>
+<?php 
+require_once '../functions.php'; 
+$limit = 3;
+$countPage = count(view("SELECT * FROM `product`"));
+$totalPage = ceil($countPage / $limit);
+$aktifPage = ((int)@$_GET['page']) ? @$_GET['page'] : 1 ;
+$limitStart = ($aktifPage - 1) * $limit;
 
+switch(@$_GET['page']):
+  case @$_POST['keyword']:
+  $keyword = @$_POST['keyword'];
+  $viewData = searchData($keyword, $limitStart, $limit);
+  break;
+  default:
+  $viewData = view("SELECT * FROM `product` ORDER BY `id` DESC LIMIT $limitStart, $limit");
+  break;
+endswitch;
+
+?>
 
 <?php if(empty($viewData)): ?>
   <tr>
-    <td colspan="3">No data on this table product</td>
+    <td colspan="5" style="color:red; font-weight: bold; text-align:center;">No data on this table product</td>
   </tr>
 <?php endif; ?>
 
- <?php $no=1; foreach($viewData as $view): ?>
+ <?php $no=$limitStart + 1; foreach($viewData as $view): ?>
     <tr>
       <th scope="row"><?=$no?></th>
       <td><?=$view['product_code']?></td>
       <td><?=$view['product_name']?></td>
-      <td><?=$view['product_price']?></td>
       <td>
         <button id="<?=$view['id']?>" class="edit btn btn-danger btn-sm"><i class='fas fa-edit'></i></button>
         <button id="<?=$view['id']?>" class="del btn btn-info btn-sm"><i class='fas fa-eraser'></i></button>
+        <button data-id="<?=$view['id']?>" class="detail btn btn-success btn-sm" data-toggle="modal" data-target="#detailData" data-code="<?=$view['product_code']?>"><i class="fas fa-fw fa-binoculars"></i></button>
       </td>
     </tr>
 <?php $no++; endforeach; ?>

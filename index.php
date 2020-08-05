@@ -18,10 +18,15 @@
         </div>
 
       </div>
-
-      <div col="col-md-4">
-        <div id="cruddata"></div>
+      
+      <div class="container">
+        <div class="row justify-content-center">
+          <div col="col-xs-12">
+            <div id="cruddata"></div>
+          </div>
+        </div>
       </div>
+
 
       <div id="animasi"></div>
 

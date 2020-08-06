@@ -77,7 +77,7 @@ function addAjax($data, $file, $table1, $table2){
 	$lastId = $dbh->lastInsertId();
 	$sql = "
 		UPDATE `$table1` SET id_react = $lastId WHERE `id` = $lastId;
-		INSERT INTO `$table2` (id_react, love, likes, fire) VALUES($lastId, '', '', '');
+		INSERT INTO `$table2` (id_react, love, likes, clapping, cool) VALUES($lastId, '', '', '', '');
 	";
 	$stmt = $dbh->prepare($sql);
 	return $stmt->execute();
@@ -110,6 +110,44 @@ function editAjax($data, $file, $table){
 	$edit->execute([$productCode, $productImage, $productName, $productDesc, $productPrice, $productId]);
 
 	return $edit->rowCount();
+}
+
+function reactEmoji($data, $table){
+	$reactEmoji = @$data['reactemoji'];
+	$reactId = @$data['reactid'];
+
+	$dbh = connect();
+
+	switch($reactEmoji){
+		case "love":
+			$sql = "UPDATE `$table` SET love=love+1 WHERE `id_react` = '$reactId'";
+			$reaction = $dbh->prepare($sql);
+			$reaction->execute();
+			return $reaction->rowCount();
+		break;
+
+		case "likes":
+			$sql = "UPDATE `$table` SET likes=likes+1 WHERE `id_react` = '$reactId'";
+			$reaction = $dbh->prepare($sql);
+			$reaction->execute();
+			return $reaction->rowCount();
+		break;
+
+		case "clapping":
+			$sql = "UPDATE `$table` SET clapping=clapping+1 WHERE `id_react` = '$reactId'";
+			$reaction = $dbh->prepare($sql);
+			$reaction->execute();
+			return $reaction->rowCount();
+		break;
+
+		case "cool":
+			$sql = "UPDATE `$table` SET cool=cool+1 WHERE `id_react` = '$reactId'";
+			$reaction = $dbh->prepare($sql);
+			$reaction->execute();
+			return $reaction->rowCount();
+		break;
+	}
+	
 }
 
 function deleteAjax($data, $table){

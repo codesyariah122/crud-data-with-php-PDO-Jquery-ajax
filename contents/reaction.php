@@ -46,15 +46,4 @@ endif;
 
 <div id="react-value"></div>
 
-<script type="text/javascript">
-	function emojiReact(emoji=[]){
-	document.getElementById('react-onclick').style.display='none';
-	for(let i = 0; i<=emoji.length; i++){
-		$('.emoji-label').eq(i).html(emoji[i]);
-		let emojiLabel = document.querySelector('.emoji-label')[i];
-		$('.emoji-label').removeClass('display');
-	}
-}
-emoji = ['&#128157;', '&#128077;', '&#128079;&#127996;', '&#129321;'];
-</script>
 <script type="text/javascript" src="assets/js/reaction.js"></script>

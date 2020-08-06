@@ -21,7 +21,7 @@ $emojiValue = view("SELECT * FROM `reaction` WHERE `id_react` = $idEmoji")[0];
 <ul class="react-ul" class="ml-2">
 	<li class="react-list"><?=$emojiValue['love']?></li>
 	<li class="react-list" style="margin-left:1rem;"><?=$emojiValue['likes']?></li>
-	<li class="react-list" style="margin-left:1.3rem;"><?=$emojiValue['clapping']?></li>
+	<li class="react-list" style="margin-left:1rem;"><?=$emojiValue['clapping']?></li>
 	<li class="react-list" style="margin-left:0.7rem;"><?=$emojiValue['cool']?></li>
 </ul>
 

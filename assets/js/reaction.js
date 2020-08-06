@@ -1,15 +1,8 @@
-function emojiReact(emoji=[]){
-	document.getElementById('react-onclick').style.display="none";
-	for(let i = 0; i<=emoji.length; i++){
-		document.getElementsByClassName("emoji-label")[i].classList.remove('display');
-		$('.emoji-label').eq(i).html(emoji[i]);
-		let emojiLabel = document.querySelector('.emoji-label')[i];
-	}
-}
-emoji = ['&#128157;', '&#128077;', '&#128079;&#127996;', '&#129321;'];
+
 
 $(document).ready(function(){
 	$('#react-value').load('contents/react_data.php');
+
 	$('input[type=checkbox]').click(function(){
 		const reactEmoji = $('input[name=reactemoji]:checked').val();
 		const reactId = $('input[type=hidden][name=reactId]').val();

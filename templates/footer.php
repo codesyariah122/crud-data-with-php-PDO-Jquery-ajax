@@ -1,5 +1,5 @@
   <!-- jQuery library -->
-  <script src="assets/jquery.min.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
 
   <!-- Popper JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -9,9 +9,7 @@
 
   <script type="text/javascript" src="assets/dist/sweetalert2.all.min.js"></script>
 
-  <script type="text/javascript" src="assets/MyJs.js"></script>
-
-
+  <script type="text/javascript" src="assets/js/MyJs.js"></script>
 
   </body>
 </html>

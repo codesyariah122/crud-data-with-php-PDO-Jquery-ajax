@@ -60,9 +60,7 @@ function addAjax($data, $file, $table1, $table2){
 		$productImage = 'no-product-image.png';
 	}
 
-	$sql = "
-			INSERT INTO `$table1` (id, product_code, product_image, product_name, product_description, product_price, id_react) VALUES ('', ?, ?, ?, ?, ?, '')
-	";
+	$sql = "INSERT INTO `$table1` (id, product_code, product_image, product_name, product_description, product_price, id_react) VALUES ('', ?, ?, ?, ?, ?, '')";
 	$insertProduct = $dbh->prepare($sql);
 
 	$insertProduct->bindParam(1, $productCode);
@@ -84,10 +82,6 @@ function addAjax($data, $file, $table1, $table2){
 
 }
 
-// function lastInsertID($data, $file, $table){
-// 	$lastInsertID = addAjax($data, $file, $table);
-// 	echo $lastInsertID;
-// }
 
 function editAjax($data, $file, $table){
 	$productCode = @$data['productcode'];

@@ -11,6 +11,9 @@
 			margin-left:0.3rem;
 			margin-top:-1rem;
 		}
+		.display{
+			display: none;
+		}
 </style>
 <?php 
 if(@$_GET['react_id']):
@@ -18,88 +21,19 @@ if(@$_GET['react_id']):
 endif; 
 ?>
 
+<button class="btn btn-small btn-primary mb-3" id="react-onclick" onclick="emojiReact(emoji)">Push Reaction</button>
+<br/>
 <input type="hidden" name="reactId" id="reactId" value="<?=$dataId?>">
 
 <input type="checkbox" id="love" value="love" name="reactemoji" class="reaction">
-<label for="love" class="emoji-label">love</label>
+<label for="love" class="emoji-label display">love</label>
 <input type="checkbox" id="likes" value="likes" name="reactemoji" class="reaction">
-<label for="likes" class="emoji-label">like</label>
+<label for="likes" class="emoji-label display">like</label>
 <input type="checkbox" id="clapping" value="clapping" name="reactemoji" class="reaction">
-<label for="clapping" class="emoji-label">clapping</label>
+<label for="clapping" class="emoji-label display">clapping</label>
 <input type="checkbox" id="cool" value="cool" name="reactemoji" class="reaction">
-<label for="cool" class="emoji-label">cool</label>
+<label for="cool" class="emoji-label display">cool</label>
 
 <div id="react-value"></div>
 
-<script type="text/javascript">
-
-function emojiReact(emoji=[]){
-	for(let i = 0; i<=emoji.length; i++){
-		$('.emoji-label').eq(i).html(emoji[i]);
-		let emojiLabel = document.querySelector('.emoji-label')[i];
-	}
-}
-emoji = ['&#128157;', '&#128077;', '&#128079;&#127996;', '&#129321;'];
-emojiReact(emoji);
-
-$(document).ready(function(){
-	$('#react-value').load('contents/react_data.php');
-	$('input[type=checkbox]').click(function(){
-		const reactEmoji = $('input[name=reactemoji]:checked').val();
-		const reactId = $('input[type=hidden][name=reactId]').val();
-		if(reactEmoji){
-			switch(reactEmoji){
-				case "love":
-				emoji = "&#128157;";
-				break;
-				case "likes":
-				emoji = "&#128077;";
-				break;
-				case "clapping":
-				emoji = "&#128079;&#127996;";
-				break;
-				case "cool":
-				emoji = "&#129321;";
-				break;
-			}
-			$.ajax({
-				url: 'contents/react_data.php?reactemoji='+reactEmoji+'&reactid='+reactId,
-				type: 'post',
-				data: 'reactEmoji='+reactEmoji+'&reactId='+reactId,
-				success: function(response){
-					if(response){
-						//Swal.fire(response);
-						Swal.fire("Your reaction : "+emoji);
-						$('#react-value').html(response);
-						$('input[name=reactemoji]').prop('checked', false);
-					}
-				}
-			})
-		}
-	})
-})
-
-
-
-
-
-// $(document).ready(function(){
-// 	$('input[type=checkbox]').click(function(e){
-// 		let reaction = [];
-// 		$.each($("input[name='reactemoji']:checked"), function(){
-// 			reaction.push($(this).val());
-// 		});
-// 		Swal.fire("Your reaction : "+reaction.join(','))
-// 	});
-// });
-
-
-// reaction.addEventListener('change', function(){	
-// 	if(this.checked){
-// 		console.log(reactEmoji.value);
-// 	}else{
-// 		console.log("Not change");
-// 	}
-// })
-
-</script>
+<script type="text/javascript" src="assets/js/reaction.js"></script>

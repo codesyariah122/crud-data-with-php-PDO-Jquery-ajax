@@ -7,6 +7,7 @@
 	.react-list{
 			list-style: none;
 			padding: 10px;
+			font-size: 1.5rem;
 		}
 </style>
 <?php
@@ -18,11 +19,11 @@ $emoji = @$_GET['reactemoji'];
 $idEmoji = @$_GET['reactid'];
 $emojiValue = view("SELECT * FROM `reaction` WHERE `id_react` = $idEmoji")[0];
 ?>
-<ul class="react-ul" class="ml-2">
-	<li class="react-list"><?=$emojiValue['love']?></li>
-	<li class="react-list" style="margin-left:1rem;"><?=$emojiValue['likes']?></li>
-	<li class="react-list" style="margin-left:1rem;"><?=$emojiValue['clapping']?></li>
-	<li class="react-list" style="margin-left:0.7rem;"><?=$emojiValue['cool']?></li>
+<ul class="react-ul" class="ml-4">
+	<li class="react-list <?=($emojiValue['love'] > 1) ? 'text-primary' : 'text-danger';?>"><?=$emojiValue['love']?></li>
+	<li class="react-list <?=($emojiValue['likes'] > 1) ? 'text-primary' : 'text-danger';?>" style="margin-left:2rem;"><?=$emojiValue['likes']?></li>
+	<li class="react-list <?=($emojiValue['clapping'] > 1) ? 'text-primary' : 'text-danger';?>" style="margin-left:2rem;"><?=$emojiValue['clapping']?></li>
+	<li class="react-list <?=($emojiValue['cool'] > 1) ? 'text-primary' : 'text-danger';?>" style="margin-left:1.7rem;"><?=$emojiValue['cool']?></li>
 </ul>
 
 <?php endif; ?>

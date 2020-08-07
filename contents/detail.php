@@ -1,6 +1,6 @@
 <style type="text/css">
 	.polygon{
-		clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+		clip-path: polygon(47% 41%, 75% 0%, 94% 49%, 75% 100%, 18% 78%, 0 30%);
 	}
 </style>
 <?php  

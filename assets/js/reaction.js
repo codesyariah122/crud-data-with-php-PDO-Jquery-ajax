@@ -1,12 +1,12 @@
-function emojiReact(emoji=[]){
+function emojiReact(emoji){
 	document.getElementById('react-onclick').style.display='none';
-	for(let i = 0; i<=emoji.length; i++){
+	for(let i = 0; i<=emoji.length-1; i++){
 		$('.emoji-label').eq(i).html(emoji[i]);
 		let emojiLabel = document.querySelector('.emoji-label')[i];
 		$('.emoji-label').removeClass('display');
 	}
 }
-emoji = ['&#128157;', '&#128077;', '&#128079;&#127996;', '&#129321;'];
+emoji = ['🥰', '&#128077;', '&#128079;&#127996;', '&#127882;'];
 
 $(document).ready(function(){
 	$('#react-value').load('contents/react_data.php');
@@ -17,7 +17,7 @@ $(document).ready(function(){
 		if(reactEmoji){
 			switch(reactEmoji){
 				case "love":
-				emoji = "&#128157;";
+				emoji = "🥰";
 				break;
 				case "likes":
 				emoji = "&#128077;";
@@ -26,7 +26,7 @@ $(document).ready(function(){
 				emoji = "&#128079;&#127996;";
 				break;
 				case "cool":
-				emoji = "&#129321;";
+				emoji = "&#127882;";
 				break;
 			}
 			$.ajax({

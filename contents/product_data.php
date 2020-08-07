@@ -1,11 +1,21 @@
-<?php 
-require_once '../functions.php'; 
-if(@$_GET['keyword'] == @$_POST['keyword']):
+<?php
+require_once '../functions.php';
+  //echo "?page=".@$_GET['page'];
+$limit = 3;
+$jmlData = count(view("SELECT * FROM `product`"));
+$jmlHalaman = ceil($jmlData / $limit);
+$aktifPage = ((int)@$_GET['page']) ? @$_GET['page'] : 1;
+$limitStart = ($aktifPage - 1)*$limit;
+switch(@$_GET['page']):
+  case @$_POST['keyword']:
   $keyword = @$_POST['keyword'];
-    //usleep(700000);
-    $viewData = searchData($keyword);
-endif;   
+  $viewData = searchData($keyword, $limitStart, $limit);
+  break;
+  default:
+  $viewData = view("SELECT * FROM `product` ORDER BY `id` DESC LIMIT $limitStart, $limit");
+endswitch;
 ?>
+
 
 <?php if(empty($viewData)): ?>
   <tr>
@@ -14,28 +24,7 @@ endif;
 <?php endif; ?>
 
 
-<!-- Modal untuk detail product data -->
-<div class="modal fade" id="detailData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail Product : <span id="product-code"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="detail-product">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
- <?php $no=1; foreach($viewData as $view): ?>
+ <?php $no=$limitStart+1; foreach($viewData as $view): ?>
     <tr>
       <th scope="row"><?=$no?></th>
       <td><?=$view['product_code']?></td>
@@ -47,6 +36,4 @@ endif;
       </td>
     </tr>
 <?php $no++; endforeach; ?>
-
-
 

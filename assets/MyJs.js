@@ -23,7 +23,7 @@ $('#viewdata').on('keyup', '#keyword', function(){
 	const keyword = $('#keyword').val();
 
 	$.ajax({
-		url: 'contents/product_data2.php?page='+keyword,
+		url: 'contents/product_data.php?page='+keyword,
 		type: 'post',
 		data: 'keyword='+keyword,
 		success: function(response){
@@ -44,7 +44,7 @@ $('#viewdata').on('click', '.page-link', function(){
 	const pageNum = $(this).data('num');
 
 	$.ajax({
-		url: 'contents/product_data2.php?page='+pageNum,
+		url: 'contents/product_data.php?page='+pageNum,
 		type: 'post',
 		data: 'pageNum='+pageNum,
 		success: function(response){

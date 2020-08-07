@@ -16,11 +16,11 @@
       <img src="assets/img/animated.gif" class="loader">
   </div>
 </div>
-  
-<div id="pagging"></div>
 
-<div id="modal-data">
-</div>
+<div id="paging"></div>
+
+
+<div id="modal-detail"></div>  
 
 <table class="table table-hover">
   <thead>
@@ -37,7 +37,10 @@
 
 
 <script type="text/javascript">
-  $('#product-data').load('contents/product_data2.php').fadeIn(1000);
-  $('#modal-data').load('contents/modal.php');
-  $('#pagging').load('contents/paging.php');
+  $(document).ready(function(){
+      $('#product-data').load('contents/product_data.php').fadeIn(1000);
+      $('#modal-detail').load('contents/modal.php');
+      $('#paging').load('contents/paging.php');
+      $('#keyword').trigger('focus');
+  });
 </script>

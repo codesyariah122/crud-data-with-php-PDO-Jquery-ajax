@@ -1,7 +1,5 @@
 <?php
 require_once 'config.php';
-$perPage = 3;
-
 function layout($dir, $file, $ext){
 	global $dir;
 	if(file_exists($dir.'/'.$file.$ext)){
@@ -113,6 +111,7 @@ function searchData($keyword, $limitStart, $limit){
 			  `product_code` LIKE '%$keyword' OR
 			  `product_name` LIKE '%$keyword%' OR 
 			  `product_price` LIKE '%$keyword%' 
+			  ORDER BY `id` DESC
 			  LIMIT $limitStart, $limit";
 
 	return view($query);

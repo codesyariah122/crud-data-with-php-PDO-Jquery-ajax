@@ -19,7 +19,7 @@ $emoji = @$_GET['reactemoji'];
 $idEmoji = @$_GET['reactid'];
 $emojiValue = view("SELECT * FROM `reaction` WHERE `id_react` = $idEmoji")[0];
 ?>
-<ul class="react-ul" class="ml-4">
+<ul class="react-ul ml-4">
 	<li class="react-list <?=($emojiValue['love'] > 1) ? 'text-primary' : 'text-danger';?>"><?=$emojiValue['love']?></li>
 	<li class="react-list <?=($emojiValue['likes'] > 1) ? 'text-primary' : 'text-danger';?>" style="margin-left:2rem;"><?=$emojiValue['likes']?></li>
 	<li class="react-list <?=($emojiValue['clapping'] > 1) ? 'text-primary' : 'text-danger';?>" style="margin-left:2rem;"><?=$emojiValue['clapping']?></li>

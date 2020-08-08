@@ -24,11 +24,6 @@
 		}
 
 </style>
-<?php 
-if(@$_GET['react_id']):
-	$dataId = @$_GET['react_id']; 
-endif; 
-?>
 
 <button class="btn btn-small btn-primary mb-3" id="react-onclick" onclick="emojiReact(emoji)">Push Reaction</button>
 <br/>

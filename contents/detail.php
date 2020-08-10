@@ -13,7 +13,7 @@ endif;
 <?php foreach($detailData as $data): ?>
 	<div class="row justify-content-center">
 		<div class="card" style="width: 18rem;">
-		  <img id="setan" src="assets/images/<?=$data['product_image']?>" class="card-img-top polygon" alt="<?=$data['product_name']?>">
+		  <img id="product-img" src="assets/images/<?=$data['product_image']?>" class="card-img-top polygon" alt="<?=$data['product_name']?>">
 		  <div class="card-body">
 		  	<h3 class="text-primary"><?=$data['product_name']?></h3>
 		    <p class="card-text">

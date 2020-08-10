@@ -1,5 +1,5 @@
 ## crud data with PHP(PDO Extention) and jquery ajax  
-![crudAjax_pdoMethod](https://raw.githubusercontent.com/codesyariah122/crud-data-with-php-PDO-Jquery-ajax/with_upload/assets/crud_ajax_pagination.gif)  
+![crudAjax_pdoMethod](https://raw.githubusercontent.com/codesyariah122/crud-data-with-php-PDO-Jquery-ajax/with_pagination/assets/crud_ajax_pagination.gif)  
 
 
 ***Prerequisites***  

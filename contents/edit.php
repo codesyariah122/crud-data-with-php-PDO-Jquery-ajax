@@ -41,9 +41,9 @@ else:
 				<input type="text" id="productcode" class="form-control" value="<?=$viewById[0]['product_code']?>">
 			</li>
 			<li>
-				<img src="assets/images/<?=$viewById[0]['product_image']?>" width="200" height="200" class="img-responsive mt-2">
+				<img src="assets/images/<?=$viewById[0]['product_image']?>" width="250" height="250" class="img-responsive mt-2 mb-2">
 				<div class="form-group">
-				   <label for="productimage">Choose file for upload</label>
+				   <label for="productimage">Upload product image</label>
 				   <input type="file" class="form-control-file" id="productimage" value="<?=$viewById[0]['product_image']?>">
 				 </div>
 			</li>

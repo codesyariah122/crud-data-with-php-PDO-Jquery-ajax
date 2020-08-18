@@ -1,11 +1,11 @@
-<?php 
-require_once '../functions.php'; 
+<?php
+require_once '../functions.php';
+  //echo "?page=".@$_GET['page'];
 $limit = 3;
-$countPage = count(view("SELECT * FROM `product`"));
-$totalPage = ceil($countPage / $limit);
-$aktifPage = ((int)@$_GET['page']) ? @$_GET['page'] : 1 ;
-$limitStart = ($aktifPage - 1) * $limit;
-
+$jmlData = count(view("SELECT * FROM `product`"));
+$jmlHalaman = ceil($jmlData / $limit);
+$aktifPage = ((int)@$_GET['page']) ? @$_GET['page'] : 1;
+$limitStart = ($aktifPage - 1)*$limit;
 switch(@$_GET['page']):
   case @$_POST['keyword']:
   $keyword = @$_POST['keyword'];
@@ -13,10 +13,9 @@ switch(@$_GET['page']):
   break;
   default:
   $viewData = view("SELECT * FROM `product` ORDER BY `id` DESC LIMIT $limitStart, $limit");
-  break;
 endswitch;
-
 ?>
+
 
 <?php if(empty($viewData)): ?>
   <tr>
@@ -24,7 +23,8 @@ endswitch;
   </tr>
 <?php endif; ?>
 
- <?php $no=$limitStart + 1; foreach($viewData as $view): ?>
+
+ <?php $no=$limitStart+1; foreach($viewData as $view): ?>
     <tr>
       <th scope="row"><?=$no?></th>
       <td><?=$view['product_code']?></td>
@@ -36,3 +36,4 @@ endswitch;
       </td>
     </tr>
 <?php $no++; endforeach; ?>
+

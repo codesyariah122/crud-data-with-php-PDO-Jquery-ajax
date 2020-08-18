@@ -10,25 +10,25 @@ $limitStart = ($limit * $aktifPage) - $limit;
 <span id="nav-page">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-  	<?php if($aktifPage > 1): ?>
+    <?php if($aktifPage > 1): ?>
     <li class="page-item"><a class="page-link" data-num="<?=$aktifPage - 1?>" href="#">Previous</a></li>
     <?php else: ?>
     <li class="page-item disabled"><a class="page-link" data-num="<?=$aktifPage - 1?>" href="#">Previous</a></li>
-    <?php endif; ?>	
+    <?php endif; ?> 
 </span>
     <?php for($i=1; $i<=$totalPage; $i++): ?>
-    	<?php if($i == $aktifPage): ?>
-    		<li class="page-item active" aria-current="page"><a class="page-link" data-num="<?=$i?>" href="#"><?=$i?><span class="sr-only">(current)</span></a></li>
-    	<?php else: ?>
-    		<li class="page-item"><a class="page-link" data-num="<?=$i?>" href="#"><?=$i?></a></li>
-    	<?php endif; ?>
+      <?php if($i == $aktifPage): ?>
+        <li class="page-item active" aria-current="page"><a class="page-link" data-num="<?=$i?>" href="#"><?=$i?><span class="sr-only">(current)</span></a></li>
+      <?php else: ?>
+        <li class="page-item"><a class="page-link" data-num="<?=$i?>" href="#"><?=$i?></a></li>
+      <?php endif; ?>
     <?php endfor; ?>
     <?php if($aktifPage < $totalPage): ?>
     <li class="page-item"><a class="page-link" data-num="<?=$aktifPage + 1?>" href="#">Next</a></li>
     <?php else: ?>
     <li class="page-item disabled"><a class="page-link" data-num="<?=$aktifPage + 1?>" href="#">Next</a></li>
-	<?php endif; ?>
+  <?php endif; ?>
   </ul>
 </nav>
 
-<script type="text/javascript" src="assets/js/setupPaging.js"></script>
+<script type="text/javascript" src="assets/js/paging.js"></script>

@@ -11,5 +11,8 @@
 
   <script type="text/javascript" src="assets/js/MyJs.js"></script>
 
+  <script type="text/javascript" src="assets/js/login.js"></script>
+
+
   </body>
 </html>

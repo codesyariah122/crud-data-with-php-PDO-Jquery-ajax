@@ -1,8 +1,9 @@
 <style type="text/css">
-	.polygon{
-		clip-path: polygon(47% 41%, 75% 0%, 94% 49%, 75% 100%, 18% 78%, 0 30%);
+	.product-img{
+		clip-path: polygon(36% 3%, 75% 0%, 56% 51%, 75% 100%, 26% 95%, 0% 50%);
 	}
 </style>
+
 <?php  
 require_once '../functions.php';
 if(@$_GET['detail']):
@@ -13,7 +14,7 @@ endif;
 <?php foreach($detailData as $data): ?>
 	<div class="row justify-content-center">
 		<div class="card" style="width: 18rem;">
-		  <img id="product-img" src="assets/images/<?=$data['product_image']?>" class="card-img-top polygon" alt="<?=$data['product_name']?>">
+		  <img src="assets/images/<?=$data['product_image']?>" class="card-img-top" alt="<?=$data['product_name']?>">
 		  <div class="card-body">
 		  	<h3 class="text-primary"><?=$data['product_name']?></h3>
 		    <p class="card-text">
@@ -23,12 +24,11 @@ endif;
 		    	<?=$data['product_description']?>
 		    </p>
 		    <div id="reaction">
-		    	<input type="hidden" id="id_react" name="id_react" value="<?=$data['id_react']?>">
+		    	<input type="hidden" name="id_react" id="id_react" value="<?=$data['id_react']?>">
 		    </div>
 		  </div>
 		</div>
 	</div>
 <?php endforeach; ?>
 
-
-<script type="text/javascript" src="assets/js/getReaction.js"></script>
+<script type="text/javascript" src="assets/js/detail.js"></script>

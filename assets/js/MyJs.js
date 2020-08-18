@@ -17,6 +17,7 @@ $('#cruddata').on('click', '#close', function(){
 	}, 3000);
 });
 
+
 $('#viewdata').on('keyup', '#keyword', function(){
 	$('.loader').show();
 	const keyword = $('#keyword').val();
@@ -27,6 +28,7 @@ $('#viewdata').on('keyup', '#keyword', function(){
 		data: 'keyword='+keyword,
 		success: function(response){
 			if(response){
+				//alert(response);
 				$('.loader').hide().slideUp(1000);
 				$('#product-data').html(response);
 			}else{
@@ -34,19 +36,24 @@ $('#viewdata').on('keyup', '#keyword', function(){
 			}
 		}
 	});
-	
+
 });
+
 
 $('#viewdata').on('click', '.page-link', function(){
 	const pageNum = $(this).data('num');
+
 	$.ajax({
 		url: 'contents/product_data.php?page='+pageNum,
 		type: 'post',
 		data: 'pageNum='+pageNum,
 		success: function(response){
-			$('#product-data').html(response);
+			if(response){
+				//alert(response);
+				$('#product-data').html(response);
+			}
 		}
-	})
+	});
 });
 
 
@@ -60,7 +67,6 @@ $(document).ready(function(){
 		const productName = $('#productname').val();
 		const productDesc = $('#productdescription').val();
 		const productPrice = $('#productprice').val();
-
 
 		if(productCode == '' || productImage == undefined || productName == '' || productPrice == ''){
 			alert("Form data is empty, please try again");
@@ -80,11 +86,10 @@ $(document).ready(function(){
 				data: form_data,
 				processData: false,
 				contentType: false,
-				async: false,
+				cache: false,
 				success: function(response){
 					if(response){
-						//alert(response);
-
+						// alert(response);
 						let time = (new Date().getTime() - this.startTime);
 						console.log("This request took "+time+" ms");
 
@@ -111,8 +116,6 @@ $(document).ready(function(){
 							}, time);
 						  }
 						});
-
-
 					}else{
 						alert("Failed add new product");
 					}
@@ -144,7 +147,7 @@ $(document).ready(function(){
 		const productPrice = $('#productprice').val();
 		const productId = $('#productid').val();
 
-		if(productImage == undefined || productName == '' || productPrice == ''){
+		if(productName == '' || productPrice == '' || productImage == undefined){
 			Swal.fire({
 			  position: 'top-end',
 			  icon: 'success',
@@ -169,7 +172,9 @@ $(document).ready(function(){
 				data: form_data,
 				processData: false,
 				contentType: false,
-				async: false,
+				cache: false,
+				async:false,
+
 				success: function(response){
 					if(response){
 						let time = (new Date().getTime() - this.startTIme);
@@ -190,7 +195,7 @@ $(document).ready(function(){
 							$('#viewdata').load('contents/view.php').fadeIn(100);
 							setTimeout(function(){
 								$('#animasi').hide('slow').slideUp(1000);
-							}, 2500);
+							}, time);
 						  }
 						});
 						

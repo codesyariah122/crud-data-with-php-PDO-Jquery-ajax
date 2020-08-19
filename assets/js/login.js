@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$('body').css({
 			'background-image' : 'url("assets/img/bg-2.jpg")',
 			'background-attachment': 'fixed',
-			'height': '100%',
+			'height': '100vh',
 			'background-position': 'center',
  			'background-repeat': 'no-repeat',
   			'background-size': 'cover',
